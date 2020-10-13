@@ -13,8 +13,8 @@ public:
 	~CashRegister();
 	Ticket& createTicket(double cost, double dph) {};
 	Ticket& getTicket(int id) {};
-	double getCost() {};
-	double getCostInDph() {};
+	double getCost() const {};
+	double getCostInDph() const {};
 };
 
 #endif // !CASHREGISTER_H

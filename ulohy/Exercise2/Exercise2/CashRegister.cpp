@@ -18,12 +18,14 @@ CashRegister::~CashRegister() {
 
 Ticket& CashRegister::createTicket(double cost, double dph){
 
-	if (idCounter == 10) {
+	if (ticketsCount == 10) {
 		throw new std::exception("CashRegister is full");
 	}
-	tickets[ticketsCount].setId(idCounter + ticketsCount);
+	tickets[ticketsCount].setId(idCounter);
+	
 	tickets[ticketsCount].setCost(cost);
 	tickets[ticketsCount].setDph(dph);
+	idCounter++;
 	ticketsCount++;
 	return tickets[ticketsCount - 1];
 }
@@ -38,7 +40,7 @@ Ticket& CashRegister::getTicket(int id) {
 	return tickets[0];  // returns default first
 }
 
-double CashRegister::getCost() {
+double CashRegister::getCost() const {
 	double ticketsCost = 0;
 	for (int i = 0; i < ticketsCount; i++)
 	{
@@ -47,7 +49,7 @@ double CashRegister::getCost() {
 	return ticketsCost;
 }
 
-double CashRegister::getCostInDph() {
+double CashRegister::getCostInDph() const {
 	double ticketsCostDph = 0;
 	for (int i = 0; i < ticketsCount; i++)
 	{
