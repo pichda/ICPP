@@ -23,4 +23,4 @@ public:
 
 };
 
-#endif // !RECEIPT_H
+#endif // !TICKET_H

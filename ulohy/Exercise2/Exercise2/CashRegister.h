@@ -17,4 +17,4 @@ public:
 	double getCostInDph() {};
 };
 
-#endif
+#endif // !CASHREGISTER_H
