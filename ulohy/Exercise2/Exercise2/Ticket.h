@@ -14,12 +14,12 @@ public:
 	Ticket();
 	~Ticket();
 
-	void setId(int id) {};
-	int getId() const {};
-	double getCost() {};
-	void setCost(double cost){}
-	double getDph() {};
-	void setDph(double cost) {}
+	void SetId(int id) ;
+	int GetId() const ;
+	double GetCost() ;
+	void SetCost(double cost);
+	double GetDph();
+	void SetDph(double dph);
 
 };
 

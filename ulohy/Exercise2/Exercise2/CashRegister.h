@@ -11,10 +11,10 @@ public:
 
 	CashRegister();
 	~CashRegister();
-	Ticket& createTicket(double cost, double dph) {};
-	Ticket& getTicket(int id) {};
-	double getCost() const {};
-	double getCostInDph() const {};
+	Ticket& CreateTicket(double cost, double dph);
+	Ticket& GetTicket(int id);
+	double GetCost() const;
+	double GetCostInDph() const;
 };
 
 #endif // !CASHREGISTER_H

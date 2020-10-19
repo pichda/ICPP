@@ -16,44 +16,45 @@ CashRegister::~CashRegister() {
 	delete &idCounter;
 }
 
-Ticket& CashRegister::createTicket(double cost, double dph){
+Ticket& CashRegister::CreateTicket(double cost, double dph){
 
 	if (ticketsCount == 10) {
 		throw new std::exception("CashRegister is full");
 	}
-	tickets[ticketsCount].setId(idCounter);
+	tickets[ticketsCount].SetId(idCounter);
 	
-	tickets[ticketsCount].setCost(cost);
-	tickets[ticketsCount].setDph(dph);
+	tickets[ticketsCount].SetCost(cost);
+	tickets[ticketsCount].SetDph(dph);
 	idCounter++;
 	ticketsCount++;
 	return tickets[ticketsCount - 1];
 }
 
-Ticket& CashRegister::getTicket(int id) {
+Ticket& CashRegister::GetTicket(int id) {
 	for (int i = 0; i < ticketsCount; i++)
 	{
-		if (tickets[i].getId() == id) {
+		if (tickets[i].GetId() == id) {
 			return tickets[i];
 		}
 	}
 	return tickets[0];  // returns default first
 }
 
-double CashRegister::getCost() const {
+double CashRegister::GetCost() const {
 	double ticketsCost = 0;
 	for (int i = 0; i < ticketsCount; i++)
 	{
-		ticketsCost += tickets[i].getCost();
+		ticketsCost += tickets[i].GetCost();
 	}
 	return ticketsCost;
 }
 
-double CashRegister::getCostInDph() const {
+double CashRegister::GetCostInDph() const {
 	double ticketsCostDph = 0;
 	for (int i = 0; i < ticketsCount; i++)
 	{
-		ticketsCostDph += tickets[i].getCost() * (1 + tickets[i].getDph());
+		ticketsCostDph += tickets[i].GetCost() * (tickets[i].GetDph()/100);
+		ticketsCostDph += tickets[i].GetCost();
 	}
 	return ticketsCostDph;
 }

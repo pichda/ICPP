@@ -13,18 +13,26 @@ Ticket::~Ticket() {
 	delete &dph;
 }
 
-void Ticket::setId(int id) {
+void Ticket::SetId(int id) {
 	this->id = id;
 }
 
-int Ticket::getId() const {
+int Ticket::GetId() const {
 	return id;
 }
 
-void Ticket::setCost(double cost) {
+void Ticket::SetCost(double cost) {
 	this->cost = cost;
 }
 
-double Ticket::getCost() {
+double Ticket::GetCost() {
 	return cost;
+}
+
+double Ticket::GetDph() {
+	return dph;
+}
+
+void Ticket::SetDph(double dph) {
+	this->dph = dph;
 }

@@ -1,18 +1,21 @@
 #include "Ticket.h"
 #include "CashRegister.h"
+#include <iostream>
 
 int main(int argc, char** argv)
 {
-	Ticket* ticket = new Ticket();
-	ticket->SetId(1001);
-	(*ticket).GetId();
-	ticket->GetId();
+	CashRegister* cashRegist = new CashRegister();
 
-	Ticket ticket2 = Ticket();
-	ticket2.SetId(1002);
-	const Ticket ticket3 = Ticket();
-	ticket3.GetId();
-	//ticket3.SetId(1003);
+	cashRegist->CreateTicket(100, 20);
+	cashRegist->CreateTicket(1000, 50);
+	cashRegist->CreateTicket(60, 100);
+
+	std::cout << "cost of ticket 1001:" << cashRegist->GetTicket(1000).GetCost() << "\n";
+	std::cout << "cost of ticket 1002:" << cashRegist->GetTicket(1001).GetCost() << "\n";
+	std::cout << "cost of ticket 1003:" << cashRegist->GetTicket(1002).GetCost() << "\n";
+
+	std::cout << "cost of tickets:" << cashRegist->GetCost() << "\n";
+	std::cout << "cost of tickets with tax:" << cashRegist->GetCostInDph() << "\n";
 
 	return 0;
 
