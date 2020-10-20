@@ -5,15 +5,16 @@
 #define ID_COUNTER_INIT_VALUE 1000;
 
 int CashRegister::idCounter = ID_COUNTER_INIT_VALUE;
-int ticketsCount = 0;
 
 CashRegister::CashRegister() {
 	tickets = new Ticket[10];
+	ticketsCount = 0;
 }
 
 CashRegister::~CashRegister() {
 	delete[]tickets;
 	delete &idCounter;
+	delete &ticketsCount;
 }
 
 Ticket& CashRegister::CreateTicket(double cost, double dph){

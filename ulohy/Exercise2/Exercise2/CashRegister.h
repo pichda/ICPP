@@ -7,6 +7,7 @@
 class CashRegister {
 	Ticket* tickets;
 	static int idCounter;
+	int ticketsCount;
 public:
 
 	CashRegister();
