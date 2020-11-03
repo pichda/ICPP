@@ -142,13 +142,13 @@
   <ItemGroup>
     <ClInclude Include="IComparable.h" />
     <ClInclude Include="IObject.h" />
-    <ClInclude Include="MyTime.h" />
+    <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IComparable.cpp" />
     <ClCompile Include="IObject.cpp" />
-    <ClCompile Include="MyMain.cpp" />
-    <ClCompile Include="MyTime.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
