@@ -10,6 +10,12 @@ Model::ContactList::ContactList()
 
 Model::ContactList::~ContactList()
 {
+	Node* node = _start;
+	while (node != nullptr) {
+		Node* tmp = node->next;
+		delete node;
+		node = tmp;
+	}
 }
 
 void Model::ContactList::addContact(Person person)
