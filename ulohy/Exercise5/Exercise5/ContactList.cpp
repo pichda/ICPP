@@ -1,4 +1,5 @@
 #include "ContactList.h"
+#include <stdexcept>
 
 using namespace Model;
 using namespace Entity;
@@ -30,12 +31,12 @@ void Model::ContactList::addContact(Person person)
 
 		// kontrola, jestli se shoduje s prvnim prvek
 		if (newNode->data.GetId() == person.GetId() || newNode->data.GetName() == person.GetName()) {
-			throw std::exception("Jmeno nebo id uz existuje");
+			throw std::invalid_argument("Jmeno nebo id uz existuje");
 		}
 		while (newNode->next != nullptr) {
 			// vyhodi vyjimku, pokud id nebo jmeno je stejne uz s prvkem v seznamu
 			if (newNode->data.GetId() == person.GetId() || newNode->data.GetName() == person.GetName()) {
-				throw std::exception("Jmeno nebo id uz existuje");
+				throw std::invalid_argument("Jmeno nebo id uz existuje");
 			}
 			newNode = newNode->next;
 		}
@@ -57,7 +58,7 @@ int Model::ContactList::FindContactNumber(std::string name) const
 				return tempN->data.GetContactNumber();
 			}
 			if (tempN->next == nullptr) {
-				throw std::exception("Zadny kontakt nenalezen.");
+				throw std::invalid_argument("Zadny kontakt nenalezen.");
 			}
 			else {
 				tempN = tempN->next;
@@ -70,7 +71,7 @@ int Model::ContactList::FindContactNumber(int id) const
 {
 	if (_start == nullptr)
 	{
-		throw std::exception("Neni zadny prvek v seznamu");
+		throw std::invalid_argument("Neni zadny prvek v seznamu");
 	}
 	else {
 		Node* tempN = _start;
@@ -79,7 +80,7 @@ int Model::ContactList::FindContactNumber(int id) const
 				return tempN->data.GetContactNumber();
 			}
 			if (tempN->next == nullptr) {
-				throw std::exception("Zadny kontakt nenalezen.");
+				throw std::invalid_argument("Zadny kontakt nenalezen.");
 			}
 			else {
 				tempN = tempN->next;
