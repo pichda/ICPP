@@ -24,7 +24,7 @@ namespace Model {
 		ContactList();
 		~ContactList();
 
-		void addContact(Person person);
+		void AddContact(Person person);
 		int FindContactNumber(std::string name) const;
 		int FindContactNumber(int id) const;
 	};

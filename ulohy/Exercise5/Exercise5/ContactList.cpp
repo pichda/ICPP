@@ -19,7 +19,7 @@ Model::ContactList::~ContactList()
 	}
 }
 
-void Model::ContactList::addContact(Person person)
+void Model::ContactList::AddContact(Person person)
 {
 	if (_start == nullptr)
 	{
