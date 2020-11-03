@@ -49,20 +49,18 @@ int Model::ContactList::FindContactNumber(std::string name) const
 {
 	if (_start == nullptr)
 	{
-		throw std::exception("Neni zadny prvek v seznamu");
+		throw std::invalid_argument("Neni zadny prvek v seznamu");
 	}
-	else {
-		Node* tempN = _start;
-		while (true) {
-			if (name == tempN->data.GetName()) {
-				return tempN->data.GetContactNumber();
-			}
-			if (tempN->next == nullptr) {
-				throw std::invalid_argument("Zadny kontakt nenalezen.");
-			}
-			else {
-				tempN = tempN->next;
-			}
+	Node* tempN = _start;
+	while (true) {
+		if (name == tempN->data.GetName()) {
+			return tempN->data.GetContactNumber();
+		}
+		if (tempN->next == nullptr) {
+			throw std::invalid_argument("Zadny kontakt nenalezen.");
+		}
+		else {
+			tempN = tempN->next;
 		}
 	}
 }
@@ -73,18 +71,16 @@ int Model::ContactList::FindContactNumber(int id) const
 	{
 		throw std::invalid_argument("Neni zadny prvek v seznamu");
 	}
-	else {
-		Node* tempN = _start;
-		while (true) {
-			if (id == tempN->data.GetId()) {
-				return tempN->data.GetContactNumber();
-			}
-			if (tempN->next == nullptr) {
-				throw std::invalid_argument("Zadny kontakt nenalezen.");
-			}
-			else {
-				tempN = tempN->next;
-			}
+	Node* tempN = _start;
+	while (true) {
+		if (id == tempN->data.GetId()) {
+			return tempN->data.GetContactNumber();
+		}
+		if (tempN->next == nullptr) {
+			throw std::invalid_argument("Zadny kontakt nenalezen.");
+		}
+		else {
+			tempN = tempN->next;
 		}
 	}
 }
