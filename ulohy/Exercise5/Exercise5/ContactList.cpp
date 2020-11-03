@@ -20,18 +20,21 @@ void Model::ContactList::addContact(Person person)
 		_start = node;
 	}
 	else {
-		// bez kontroly klice, zadani nedava rozum, protoze klic by se nemel opakovat
+		Node* newNode = _start;
 
-		if (_start == nullptr)
-		{
-			Node* node = new Node(person);
-			_start = node;
+		// kontrola, jestli se shoduje s prvnim prvek
+		if (newNode->data.GetId() == person.GetId() || newNode->data.GetName() == person.GetName()) {
+			throw std::exception("Jmeno nebo id uz existuje");
 		}
-		else {
-			Node* newNode = new Node(person);
-			newNode->next = _start;
-			_start = newNode;
+		while (newNode->next != nullptr) {
+			// vyhodi vyjimku, pokud id nebo jmeno je stejne uz s prvkem v seznamu
+			if (newNode->data.GetId() == person.GetId() || newNode->data.GetName() == person.GetName()) {
+				throw std::exception("Jmeno nebo id uz existuje");
+			}
+			newNode = newNode->next;
 		}
+		Node* contact = new Node(person);
+		newNode->next = contact;
 	}
 }
 
