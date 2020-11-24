@@ -2,23 +2,26 @@
 #include<fstream>
 #include<iostream>
 
-void loadPeople(Person* array) {
+Person* loadPeople() {
 	std::ifstream inf("data.dat", std::ios::in, std::ios::binary);
 
 	if (inf.is_open()) {
-		//	for (int i = 0; i < 3; i++) {
-		inf.read((char*)array, 3 * sizeof(Person));
-		//	}
+		int size = 0;
+		inf.read((char*)&size, 1 * sizeof(int));
+		Person* array = new Person[size];
+		inf.read((char*)array, size * sizeof(Person));
 		inf.close();
+		return array;
 	}
 	else {
 		std::cout << "File can't be opened.";
-		exit(1);
+		return nullptr;
 	}
 }
 
 void writePeopleToFile() {
-	Person* arr = new Person[3];
+	int size = 3;
+	Person* arr = new Person[size];
 
 	Address adress = Address(std::string("miru 3"), std::string("Chrudim"), 11111);
 	Date date = Date();
@@ -32,6 +35,7 @@ void writePeopleToFile() {
 
 	std::ofstream wf("data.dat", std::ios::out, std::ios::binary);
 	if (wf.is_open()) {
+		wf.write((char*)&size, sizeof(int));
 		for (int i = 0; i < 3; i++) {
 			wf.write((char*)&arr[i], sizeof(Person));
 		}
@@ -48,12 +52,13 @@ int main(int argc, char** argv)
 {
 	writePeopleToFile();
 	Person* arr2;
-	arr2 = new Person[3];
-	loadPeople(arr2);
+	arr2 = loadPeople();
 
-	for (int i = 0; i < 3; i++)
-	{
-		std::cout << arr2[i] << std::endl;
+	if (arr2 != nullptr) {
+		for (int i = 0; i < 3; i++)
+		{
+			std::cout << arr2[i] << std::endl;
+		}
 	}
 	return 0;
 }
