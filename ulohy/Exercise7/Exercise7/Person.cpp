@@ -10,6 +10,10 @@ Person::Person()
 
 Person::Person(std::string _name, std::string _surname, Address domicile, Date _birthDate)
 {
+	if (_name == "" || _surname == "") {
+		throw std::invalid_argument("Enter atleast one character");
+	}
+
 	this->_name = _name;
 	this->_surname = _surname;
 	this->domicile = domicile;
