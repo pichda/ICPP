@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <iostream>
 
-template <class T>
+template <typename T>
 
 class Matrix {
 private:
@@ -28,39 +28,41 @@ public:
 	Matrix<T> Sum(T scalar) const;
 	bool IsIdentical(const Matrix& m) const;
 	void PrintMatrix()const;
-	int GetRows()const { return rows; };
-	int GetColumns()const { return columns; };
 
-	template<class R>
+	template<typename R>
 	Matrix<R> Parse() const;
 };
 
-template<class T>
+template<typename T>
 inline Matrix<T>::Matrix(int row, int column)
 {
 	if (row <= 0 || column <= 0) {
 		throw std::invalid_argument("row or column is smaller than 1");
 	}
-	_matrix = new T * [row];
 	rows = row;
 	columns = column;
+	_matrix = new T * [rows];
 
 	for (int i = 0; i < rows; i++)
 	{
-		_matrix[i] = new T[column];
+		_matrix[i] = new T[columns];
+		for (int j = 0; j < columns; j++)
+		{
+			_matrix[i][j] = 0;
+		}
 	}
 }
 
-template<class T>
+template<typename T>
 inline Matrix<T>::Matrix(const Matrix<T>& m)
 {
 	if (m._matrix == nullptr) {
 		throw std::invalid_argument("Matrix is not set");
 	}
-
-	_matrix = new T * [rows];
 	columns = m.columns;
 	rows = m.rows;
+	_matrix = new T * [rows];
+
 	for (int i = 0; i < m.rows; i++)
 	{
 		_matrix[i] = new T[m.columns];
@@ -71,7 +73,7 @@ inline Matrix<T>::Matrix(const Matrix<T>& m)
 	}
 }
 
-template<class T>
+template<typename T>
 inline Matrix<T>::~Matrix()
 {
 	for (int i = 0; i < rows; i++) {
@@ -80,7 +82,7 @@ inline Matrix<T>::~Matrix()
 	delete[] _matrix;
 }
 
-template<class T>
+template<typename T>
 inline void Matrix<T>::SetMatrix(int row, int column, T value)
 {
 	if (_matrix == nullptr) {
@@ -94,7 +96,7 @@ inline void Matrix<T>::SetMatrix(int row, int column, T value)
 	_matrix[row][column] = value;
 }
 
-template<class T>
+template<typename T>
 inline void Matrix<T>::SetMatrixFrom(T* array)
 {
 	if (_matrix == nullptr) {
@@ -108,7 +110,7 @@ inline void Matrix<T>::SetMatrixFrom(T* array)
 	}
 }
 
-template<class T>
+template<typename T>
 inline T& Matrix<T>::Get(int row, int column)
 {
 	if (_matrix == nullptr) {
@@ -121,13 +123,13 @@ inline T& Matrix<T>::Get(int row, int column)
 	return _matrix[row][column];
 }
 
-template<class T>
+template<typename T>
 inline const T& Matrix<T>::Get(int row, int column, int) const
 {
 	return Get(row, column);
 }
 
-template<class T>
+template<typename T>
 inline Matrix<T> Matrix<T>::Transposition() const
 {
 	if (_matrix == nullptr) {
@@ -148,7 +150,7 @@ inline Matrix<T> Matrix<T>::Transposition() const
 	return m;
 }
 
-template<class T>
+template<typename T>
 inline Matrix<T> Matrix<T>::Product(const Matrix& m) const
 {
 	if (_matrix == nullptr) {
@@ -172,7 +174,7 @@ inline Matrix<T> Matrix<T>::Product(const Matrix& m) const
 	return mult;
 }
 
-template<class T>
+template<typename T>
 inline Matrix<T> Matrix<T>::Product(T scalar) const
 {
 	Matrix<T> m{ rows,columns };
@@ -188,7 +190,7 @@ inline Matrix<T> Matrix<T>::Product(T scalar) const
 	return m;
 }
 
-template<class T>
+template<typename T>
 inline Matrix<T> Matrix<T>::Sum(const Matrix& m) const
 {
 	if (_matrix == nullptr) {
@@ -212,28 +214,25 @@ inline Matrix<T> Matrix<T>::Sum(const Matrix& m) const
 	return sum;
 }
 
-template<class T>
+template<typename T>
 inline Matrix<T> Matrix<T>::Sum(T scalar) const
 {
 	if (_matrix == nullptr) {
 		throw std::invalid_argument("Matrix is not set");
 	}
 
-	Matrix<T> sum{ rows,columns };
-	sum.rows = rows;
-	sum.columns = columns;
+	Matrix sumMatrix = Matrix(rows, columns);
 	for (int i = 0; i < rows; i++)
 	{
-		sum[i] = new T[columns];
 		for (int j = 0; j < columns; j++)
 		{
-			sum[i][j] = _matrix[i][j] + scalar;
+			sumMatrix.SetMatrix(i, j, _matrix[i][j] + scalar);
 		}
 	}
-	return sum;
+	return sumMatrix;
 }
 
-template<class T>
+template<typename T>
 inline bool Matrix<T>::IsIdentical(const Matrix& m) const
 {
 	if (_matrix == nullptr || m._matrix == nullptr) {
@@ -256,7 +255,7 @@ inline bool Matrix<T>::IsIdentical(const Matrix& m) const
 	return true;
 }
 
-template<class T>
+template<typename T>
 inline void Matrix<T>::PrintMatrix() const
 {
 	if (_matrix == nullptr) {
@@ -267,26 +266,30 @@ inline void Matrix<T>::PrintMatrix() const
 	{
 		for (int j = 0; j < columns; j++)
 		{
-			std::cout << _matrix[i][j] << std::endl;
+			std::cout << _matrix[i][j] << " ";
 		}
+		std::cout << std::endl;
 	}
 }
 
-template<class T>
-template<class R>
+template<typename T>
+template<typename R>
 inline Matrix<R> Matrix<T>::Parse() const
 {
 	if (_matrix == nullptr) {
 		throw std::invalid_argument("Matrix is not set");
 	}
-	Matrix<R> m{ GetRows(),GetColumns() };
-	m.rows = rows;
-	m.columns = columns;
+	Matrix<R> m = Matrix<R>(rows, columns);
+
+	for (size_t i = 0; i < 10; i++)
+	{
+	}
+
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < columns; j++)
 		{
-			m._matrix[i][j] = static_cast<R>(_matrix[i][j]);
+			m.SetMatrix(i, j, _matrix[i][j]);
 		}
 	}
 
