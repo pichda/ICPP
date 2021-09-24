@@ -21,7 +21,7 @@ int main(int argc, char** argv)
 	else std::cout << "nelze sestrojit";
 	
 	int countTriangle;
-	std::cout << "Zadej pocet trojuhelniku:";
+	std::cout << "\nZadej pocet trojuhelniku:";
 	std::cin >> countTriangle;
 	Triangle* triangles = new Triangle[countTriangle];
 	for (int i = 0; i < countTriangle; i++)
@@ -37,6 +37,7 @@ int main(int argc, char** argv)
 
 	}
 
+	delete testTriangle;
 	delete[] triangles;
 	return 0;
 }
