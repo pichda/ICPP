@@ -1,5 +1,6 @@
 #include "CashRegister.h"
 #include <exception>
+#include <iostream>
 
 
 #define ID_COUNTER_INIT_VALUE 1000;
@@ -12,23 +13,25 @@ CashRegister::CashRegister() {
 }
 
 CashRegister::~CashRegister() {
-	delete[]tickets;
-	delete &idCounter;
-	delete &ticketsCount;
+	delete[] tickets;
 }
 
 Ticket& CashRegister::CreateTicket(double cost, double dph){
 
 	if (ticketsCount == 10) {
-		throw new std::exception("CashRegister is full");
+		std::cout << "maximalni pocet ticketu";
 	}
-	tickets[ticketsCount].SetId(idCounter);
+	else {
+		tickets[ticketsCount].SetId(idCounter);
+
+		tickets[ticketsCount].SetCost(cost);
+		tickets[ticketsCount].SetDph(dph);
+		idCounter++;
+		ticketsCount++;
+		return tickets[ticketsCount - 1];
+	}
+
 	
-	tickets[ticketsCount].SetCost(cost);
-	tickets[ticketsCount].SetDph(dph);
-	idCounter++;
-	ticketsCount++;
-	return tickets[ticketsCount - 1];
 }
 
 Ticket& CashRegister::GetTicket(int id) {
