@@ -27,12 +27,13 @@ int main(int argc, char** argv) {
 	std::mt19937 mt(rd());
 	std::uniform_real_distribution<double> dist(0, 23);
 	std::uniform_real_distribution<double> dist_minutes(0, 59);
+	std::uniform_real_distribution<double> dist_miliseconds(0, 999);
 
 	Utils::Time** myArr = new Utils::Time * [MY_ARRAY_SIZE];
 
 	for (int i = 0; i < MY_ARRAY_SIZE; i++)
 	{
-		Utils::Time* t = new Utils::Time(dist(mt), dist_minutes(mt), dist_minutes(mt));
+		Utils::Time* t = new Utils::Time(dist(mt), dist_minutes(mt), dist_minutes(mt), dist_miliseconds(mt));
 		myArr[i] = t;
 	}
 
