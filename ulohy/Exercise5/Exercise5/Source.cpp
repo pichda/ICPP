@@ -11,9 +11,9 @@ int main(int argc, char** argv) {
 	Person* p3 = new Person("asdf3", 999888777, 3);
 
 	ContactList* contactList = new ContactList();
-	contactList->addContact(*p1);
-	contactList->addContact(*p2);
-	contactList->addContact(*p3);
+	contactList->AddContact(p1);
+	contactList->AddContact(p2);
+	contactList->AddContact(p3);
 
 	std::cout << contactList->FindContactNumber("asdf2") << std::endl;
 	std::cout << contactList->FindContactNumber(3);

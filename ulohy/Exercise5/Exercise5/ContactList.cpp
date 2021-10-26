@@ -14,12 +14,13 @@ Model::ContactList::~ContactList()
 	Node* node = _start;
 	while (node != nullptr) {
 		Node* tmp = node->next;
+		delete node->data;
 		delete node;
 		node = tmp;
 	}
 }
 
-void Model::ContactList::AddContact(Person person)
+void Model::ContactList::AddContact(Person* person)
 {
 	if (_start == nullptr)
 	{
@@ -30,12 +31,12 @@ void Model::ContactList::AddContact(Person person)
 		Node* newNode = _start;
 
 		// kontrola, jestli se shoduje s prvnim prvek
-		if (newNode->data.GetId() == person.GetId() || newNode->data.GetName() == person.GetName()) {
+		if (newNode->data->GetId() == person->GetId() || newNode->data->GetName() == person->GetName()) {
 			throw std::invalid_argument("Jmeno nebo id uz existuje");
 		}
 		while (newNode->next != nullptr) {
 			// vyhodi vyjimku, pokud id nebo jmeno je stejne uz s prvkem v seznamu
-			if (newNode->data.GetId() == person.GetId() || newNode->data.GetName() == person.GetName()) {
+			if (newNode->data->GetId() == person->GetId() || newNode->data->GetName() == person->GetName()) {
 				throw std::invalid_argument("Jmeno nebo id uz existuje");
 			}
 			newNode = newNode->next;
@@ -53,8 +54,8 @@ int Model::ContactList::FindContactNumber(std::string name) const
 	}
 	Node* tempN = _start;
 	while (true) {
-		if (name == tempN->data.GetName()) {
-			return tempN->data.GetContactNumber();
+		if (name == tempN->data->GetName()) {
+			return tempN->data->GetContactNumber();
 		}
 		if (tempN->next == nullptr) {
 			throw std::invalid_argument("Zadny kontakt nenalezen.");
@@ -73,8 +74,8 @@ int Model::ContactList::FindContactNumber(int id) const
 	}
 	Node* tempN = _start;
 	while (true) {
-		if (id == tempN->data.GetId()) {
-			return tempN->data.GetContactNumber();
+		if (id == tempN->data->GetId()) {
+			return tempN->data->GetContactNumber();
 		}
 		if (tempN->next == nullptr) {
 			throw std::invalid_argument("Zadny kontakt nenalezen.");

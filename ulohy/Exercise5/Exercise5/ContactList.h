@@ -12,9 +12,9 @@ namespace Model {
 		class Node {
 		public:
 			Node* next;
-			Person data;
+			Person* data;
 
-			Node(Person pers) { this->next = nullptr; this->data = pers; }
+			Node(Person* pers) { this->next = nullptr; this->data = pers; }
 		};
 
 	private:
@@ -24,7 +24,7 @@ namespace Model {
 		ContactList();
 		~ContactList();
 
-		void AddContact(Person person);
+		void AddContact(Person* person);
 		int FindContactNumber(std::string name) const;
 		int FindContactNumber(int id) const;
 	};
