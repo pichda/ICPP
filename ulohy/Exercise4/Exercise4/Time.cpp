@@ -20,26 +20,26 @@ Time::~Time()
 {
 }
 
-int Time::CompareTo(IComparable* time) const
+int Time::CompareTo(IComparable* right) const
 {
 	try
 	{
 		// pokud je cas roven, vraci 0
-		if (_hours == ((Time*)time)->_hours && _minutes == ((Time*)time)->_minutes && _seconds == ((Time*)time)->_seconds && _miliseconds==((Time*)time)->_miliseconds) {
+		if (_hours == ((Time*)right)->_hours && _minutes == ((Time*)right)->_minutes && _seconds == ((Time*)right)->_seconds && _miliseconds==((Time*)right)->_miliseconds) {
 			return 0;
 		}
 
-		else if (_hours <= ((Time*)time)->_hours) {  // pokud hodiny jsou vetsi nebo rovno
-			if (_hours == ((Time*)time)->_hours) {  // tak zkontroluji, jestli jsou si rovny, pokud ano, tak kontroluji minuty, sekundy, milisekundy
-				if (_minutes <= ((Time*)time)->_minutes) {
-					if (_minutes == ((Time*)time)->_minutes) {
-						if (_seconds <= ((Time*)time)->_seconds) { 
-							if (_seconds == ((Time*)time)->_seconds) {
-								if (_miliseconds < ((Time*)time)->_miliseconds) { // pokud je mensi, tak vratí -1, jinak vyskoci 
+		else if (_hours <= ((Time*)right)->_hours) {  // pokud vlevo hodiny jsou vetsi nebo rovno
+			if (_hours == ((Time*)right)->_hours) {  // tak zkontroluji, jestli jsou si rovny, pokud ano, tak kontroluji minuty, sekundy, milisekundy
+				if (_minutes <= ((Time*)right)->_minutes) {
+					if (_minutes == ((Time*)right)->_minutes) {
+						if (_seconds <= ((Time*)right)->_seconds) { 
+							if (_seconds == ((Time*)right)->_seconds) {
+								if (_miliseconds < ((Time*)right)->_miliseconds) { // pokud je mensi, tak vratí -1, jinak vyskoci 
 									return -1;									  // z else if a pokracuje do else, kde vraci ze je vetsi (1)
 								}
 							}
-							else {
+							else {  // sekundy se nerovnaji, tak musi byt mensi
 								return -1;
 							}
 						}
