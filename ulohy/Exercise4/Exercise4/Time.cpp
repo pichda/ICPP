@@ -12,7 +12,7 @@ Time::Time(int hours, int minutes, int seconds, int miliseconds)
 		this->_miliseconds = miliseconds;
 	}
 	else {
-		throw new std::invalid_argument("Zadej HH(0-23):MM(0-59):SS(0-59)::MS(0-999)");
+		throw std::invalid_argument("Zadej HH(0-23):MM(0-59):SS(0-59)::MS(0-999)");
 	}
 }
 
@@ -24,18 +24,20 @@ int Time::CompareTo(IComparable* time) const
 {
 	try
 	{
+		Time* cas = dynamic_cast<Time*>(time);
+
 		// pokud je cas roven, vraci 0
-		if (_hours == ((Time*)time)->_hours && _minutes == ((Time*)time)->_minutes && _seconds == ((Time*)time)->_seconds && _miliseconds==((Time*)time)->_miliseconds) {
+		if (_hours == cas->_hours && _minutes == cas->_minutes && _seconds == cas->_seconds && _miliseconds == cas->_miliseconds) {
 			return 0;
 		}
 
-		else if (_hours <= ((Time*)time)->_hours) {  // pokud hodiny jsou vetsi nebo rovno
-			if (_hours == ((Time*)time)->_hours) {  // tak zkontroluji, jestli jsou si rovny, pokud ano, tak kontroluji minuty, sekundy, milisekundy
-				if (_minutes <= ((Time*)time)->_minutes) {
-					if (_minutes == ((Time*)time)->_minutes) {
-						if (_seconds <= ((Time*)time)->_seconds) { 
-							if (_seconds == ((Time*)time)->_seconds) {
-								if (_miliseconds < ((Time*)time)->_miliseconds) { // pokud je mensi, tak vratí -1, jinak vyskoci 
+		else if (_hours <= cas->_hours) {  // pokud hodiny jsou vetsi nebo rovno
+			if (_hours == cas->_hours) {  // tak zkontroluji, jestli jsou si rovny, pokud ano, tak kontroluji minuty, sekundy, milisekundy
+				if (_minutes <= cas->_minutes) {
+					if (_minutes == cas->_minutes) {
+						if (_seconds <= cas->_seconds) {
+							if (_seconds == cas->_seconds) {
+								if (_miliseconds < cas->_miliseconds) { // pokud je mensi, tak vratí -1, jinak vyskoci 
 									return -1;									  // z else if a pokracuje do else, kde vraci ze je vetsi (1)
 								}
 							}
@@ -56,6 +58,7 @@ int Time::CompareTo(IComparable* time) const
 		else {
 			return 1;
 		}
+
 	}
 	catch (const std::exception&)
 	{
