@@ -20,7 +20,7 @@ Time::~Time()
 {
 }
 
-int Time::CompareTo(IComparable* time) const
+int Time::CompareTo(IComparable* right) const
 {
 	try
 	{
@@ -41,7 +41,7 @@ int Time::CompareTo(IComparable* time) const
 									return -1;									  // z else if a pokracuje do else, kde vraci ze je vetsi (1)
 								}
 							}
-							else {
+							else {  // sekundy se nerovnaji, tak musi byt mensi
 								return -1;
 							}
 						}

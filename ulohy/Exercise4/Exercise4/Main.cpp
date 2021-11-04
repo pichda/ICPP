@@ -51,5 +51,12 @@ int main(int argc, char** argv) {
 		std::cout << myArr[i]->ToString() << "\n";
 	}
 
+	// dealokace èasu
+	for (int i = 0; i < MY_ARRAY_SIZE; i++)
+	{
+		delete myArr[i];
+	}
+
+	// dealokace celeho pole
 	delete[]myArr;
 }
