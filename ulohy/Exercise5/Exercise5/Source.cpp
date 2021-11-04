@@ -3,6 +3,7 @@
 #include <iostream>
 
 using namespace Model;
+using namespace Entity;
 using namespace std;
 
 int main(int argc, char** argv) {

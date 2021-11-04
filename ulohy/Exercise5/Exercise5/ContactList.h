@@ -5,16 +5,14 @@
 #include <string>
 #include "Person.h"
 
-using namespace Entity;
-
 namespace Model {
 	class ContactList {
 		class Node {
 		public:
 			Node* next;
-			Person* data;
+			Entity::Person* data;
 
-			Node(Person* pers) { this->next = nullptr; this->data = pers; }
+			Node(Entity::Person* pers) { this->next = nullptr; this->data = pers; }
 		};
 
 	private:
@@ -24,7 +22,7 @@ namespace Model {
 		ContactList();
 		~ContactList();
 
-		void AddContact(Person* person);
+		void AddContact(Entity::Person* person);
 		int FindContactNumber(std::string name) const;
 		int FindContactNumber(int id) const;
 	};
