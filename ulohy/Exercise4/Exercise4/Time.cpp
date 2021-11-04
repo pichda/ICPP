@@ -24,7 +24,7 @@ int Time::CompareTo(IComparable* right) const
 {
 	try
 	{
-		Time* cas = dynamic_cast<Time*>(time);
+		Time* cas = dynamic_cast<Time*>(right);
 
 		// pokud je cas roven, vraci 0
 		if (_hours == cas->_hours && _minutes == cas->_minutes && _seconds == cas->_seconds && _miliseconds == cas->_miliseconds) {
