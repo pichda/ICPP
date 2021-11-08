@@ -20,7 +20,14 @@ int main(int argc, char** argv) {
 
 	std::cout << arr.GetE(1) << std::endl;
 	std::cout << arr.GetEAdress(7) << std::endl;
-	std::cout << arr.GetElementCount();
-	std::cout << arr.GetArraySize();
+	std::cout << arr.GetElementCount() << std::endl;
+	std::cout << arr.GetArraySize() << std::endl;
+
+	arr.Reallocate(30, "realokace");
+	std::cout << arr.GetE(17) << std::endl;
+
+	arr.Reallocate(2, "realokace2");
+	std::cout << arr.GetE(1) << std::endl;
+
 	return 0;
 }

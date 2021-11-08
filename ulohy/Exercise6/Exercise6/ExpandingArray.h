@@ -98,25 +98,36 @@ inline void ExpandingArray<T, S, C>::Reallocate(int size, const T& fill)
 		int newArrSize = size;
 		T* newArr = new T[newArrSize];
 
-		// memcpy(newArr, _array, newArrSize);
-
 		// pokud nove pole ma vetsi velikost nez pocet prvku v poli,
 		// tak vypln pole hodnotou fill. Jinak realokuj pole. 
-		if (size > _numberOfEntities) {
 
+		if (size > _numberOfEntities) {
+			// nejdrive naplni stare prvky
+			for (int i = 0; i < _numberOfEntities; i++)  
+			{
+				newArr[i] = _array[i];
+			}
+			
+			// doplneni pole hodnotou fill od poctu starych prvku az do nove velikost pole
+			for (int i = _numberOfEntities; i < size; i++) 
+			{
+				newArr[i] = fill;
+			}
 		}
 		else {
-
+			for (int i = 0; i < size; i++)
+			{
+				newArr[i] = _array[i];
+			}
 		}
 
-		for (int i = 0; i < _arraySize; i++)
-		{
-			newArr[i] = _array[i];
-		}
+		
 
 		delete[] _array;
 		_array = newArr;
 		_arraySize = newArrSize;
+		_numberOfEntities = size;  // pocet se nastavi na velikost pole, jelikoz pole 
+								   // bude vzdy naplnene hodnotou fill nebo prvky z predesleho pole
 	}
 
 }
