@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 // T = data type; S = size; C =  coefficient
-template <class T, int S = 5, int C = 2>
+template <class T, int S = 5, int C = 10>
 
 class ExpandingArray {
 private:
@@ -18,11 +18,14 @@ private:
 
 public:
 	ExpandingArray();
+	ExpandingArray(const T& fill);
 	~ExpandingArray();
 	void Add(const T& e);
+	void Reallocate(int size, const T& fill);
 	T& GetEAdress(int i);
 	T GetE(int i) const;
 	unsigned int GetElementCount() const;
+	unsigned int GetArraySize() const;
 };
 
 #endif EXPANDINGARRAY_H
@@ -60,6 +63,16 @@ inline ExpandingArray<T, S, C>::ExpandingArray()
 }
 
 template<class T, int S, int C>
+inline ExpandingArray<T, S, C>::ExpandingArray(const T& fill)
+{
+	_array = new T[S];
+	_arraySize = S;
+	_numberOfEntities = _arraySize;
+
+	std::fill_n(_array, _arraySize, fill);
+}
+
+template<class T, int S, int C>
 inline ExpandingArray<T, S, C>::~ExpandingArray()
 {
 	delete[] _array;
@@ -73,6 +86,39 @@ inline void ExpandingArray<T, S, C>::Add(const T& e)
 	}
 	_array[_numberOfEntities] = e;
 	_numberOfEntities += 1;
+}
+
+template<class T, int S, int C>
+inline void ExpandingArray<T, S, C>::Reallocate(int size, const T& fill)
+{
+	if (size <= 0) {
+		throw std::invalid_argument("size can not be 0 or smaller");
+	}
+	else {
+		int newArrSize = size;
+		T* newArr = new T[newArrSize];
+
+		// memcpy(newArr, _array, newArrSize);
+
+		// pokud nove pole ma vetsi velikost nez pocet prvku v poli,
+		// tak vypln pole hodnotou fill. Jinak realokuj pole. 
+		if (size > _numberOfEntities) {
+
+		}
+		else {
+
+		}
+
+		for (int i = 0; i < _arraySize; i++)
+		{
+			newArr[i] = _array[i];
+		}
+
+		delete[] _array;
+		_array = newArr;
+		_arraySize = newArrSize;
+	}
+
 }
 
 template<class T, int S, int C>
@@ -96,6 +142,12 @@ inline T ExpandingArray<T, S, C>::GetE(int i) const
 
 template<class T, int S, int C>
 inline unsigned int ExpandingArray<T, S, C>::GetElementCount() const
+{
+	return _numberOfEntities;
+}
+
+template<class T, int S, int C>
+inline unsigned int ExpandingArray<T, S, C>::GetArraySize() const
 {
 	return _arraySize;
 }
