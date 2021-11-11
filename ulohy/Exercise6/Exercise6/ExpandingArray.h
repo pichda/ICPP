@@ -1,153 +1,151 @@
 #pragma once
-#ifndef EXPANDINGARRAY_H
-#define EXPANDINGARRAY_H
+#ifndef ROUSTOUCIKONTEJNER_H
+#define ROUSTOUCIKONTEJNER_H
 
 #include <stdexcept>
 
-// T = data type; S = size; C =  coefficient
-template <class T, int S = 5, int C = 10>
+template <class TypDat, int PocetecniVelikost = 5, int C = 10>
 
-class ExpandingArray {
+class RoustouciKontejner {
 private:
-	T* _array;
-	unsigned _arraySize;
-	unsigned _numberOfEntities;
+	TypDat* _pole;
+	unsigned _velikostPole;
+	unsigned _pocetPlatnychPrvku;
 
-	bool isThereSpaceInArray();
-	void resizeArray();
+	bool jeMistoVPoli() const;
+	void zvetsiPole();
 
 public:
-	ExpandingArray();
-	ExpandingArray(const T& fill);
-	~ExpandingArray();
-	void Add(const T& e);
-	void Reallocate(int size, const T& fill);
-	T& GetEAdress(int i);
-	T GetE(int i) const;
-	unsigned int GetElementCount() const;
-	unsigned int GetArraySize() const;
+	RoustouciKontejner();
+	RoustouciKontejner(const TypDat& vypln);
+	~RoustouciKontejner();
+	void Pridej(const TypDat& o);
+	void Realokuj(int velikost, const TypDat& vypln);
+	TypDat& Dej(int index);
+	TypDat Dej(int index) const;
+	unsigned int DejPocetPrvku() const;
+	unsigned int DejVelikostPole() const;
 };
 
-#endif EXPANDINGARRAY_H
+#endif ROUSTOUCIKONTEJNER_H
 
-template<class T, int S, int C>
-inline bool ExpandingArray<T, S, C>::isThereSpaceInArray()
+template<class TypDat, int S, int C>
+inline bool RoustouciKontejner<TypDat, S, C>::jeMistoVPoli() const
 {
-	return _arraySize > _numberOfEntities;
+	return _velikostPole > _pocetPlatnychPrvku;
 }
 
-template<class T, int S, int C>
-inline void ExpandingArray<T, S, C>::resizeArray()
+
+template<class TypDat, int S, int C>
+inline void RoustouciKontejner<TypDat, S, C>::zvetsiPole()
 {
-	int newArrSize = _arraySize * C;
-	T* newArr = new T[newArrSize];
+	int newArrSize = _velikostPole * C;
+	TypDat* newArr = new TypDat[newArrSize];
 
 	// memcpy(newArr, _array, newArrSize);
 
-	for (int i = 0; i < _arraySize; i++)
+	for (int i = 0; i < _velikostPole; i++)
 	{
-		newArr[i] = _array[i];
+		newArr[i] = _pole[i];
 	}
 
-	delete[] _array;
-	_array = newArr;
-	_arraySize = newArrSize;
+	delete[] _pole;
+	_pole = newArr;
+	_velikostPole = newArrSize;
 }
 
-template<class T, int S, int C>
-inline ExpandingArray<T, S, C>::ExpandingArray()
+template<class TypDat, int S, int C>
+inline RoustouciKontejner<TypDat, S, C>::RoustouciKontejner()
 {
-	_array = new T[S];
-	_arraySize = S;
-	_numberOfEntities = 0;
+	_pole = new TypDat[S];
+	_velikostPole = PocetecniVelikost;
+	_pocetPlatnychPrvku = 0;
 }
 
-template<class T, int S, int C>
-inline ExpandingArray<T, S, C>::ExpandingArray(const T& fill)
+template<class TypDat, int S, int C>
+inline RoustouciKontejner<TypDat, S, C>::RoustouciKontejner(const TypDat& fill)
 {
-	_array = new T[S];
-	_arraySize = S;
-	_numberOfEntities = _arraySize;
+	_pole = new TypDat[S];
+	_velikostPole = PocetecniVelikost;
+	_pocetPlatnychPrvku = _velikostPole;
 
-	std::fill_n(_array, _arraySize, fill);
+	std::fill_n(_pole, _velikostPole, fill);
 }
 
-template<class T, int S, int C>
-inline ExpandingArray<T, S, C>::~ExpandingArray()
+template<class TypDat, int S, int C>
+inline RoustouciKontejner<TypDat, S, C>::~RoustouciKontejner()
 {
-	delete[] _array;
+	delete[] _pole;
 }
 
-template<class T, int S, int C>
-inline void ExpandingArray<T, S, C>::Add(const T& e)
+template<class TypDat, int S, int C>
+inline void RoustouciKontejner<TypDat, S, C>::Pridej(const TypDat& e)
 {
-	if (!isThereSpaceInArray()) {
-		resizeArray();
+	if (!jeMistoVPoli()) {
+		zvetsiPole();
 	}
-	_array[_numberOfEntities] = e;
-	_numberOfEntities += 1;
+	_pole[_pocetPlatnychPrvku] = e;
+	_pocetPlatnychPrvku += 1;
 }
 
-template<class T, int S, int C>
-inline void ExpandingArray<T, S, C>::Reallocate(int size, const T& fill)
+template<class TypDat, int S, int C>
+inline void RoustouciKontejner<TypDat, S, C>::Realokuj(int size, const TypDat& fill)
 {
 	if (size <= 0) {
 		throw std::invalid_argument("size can not be 0 or smaller");
 	}
 	else {
 		int newArrSize = size;
-		T* newArr = new T[newArrSize];
-
-		// memcpy(newArr, _array, newArrSize);
+		TypDat* newArr = new TypDat[newArrSize];
 
 		// pokud nove pole ma vetsi velikost nez pocet prvku v poli,
 		// tak vypln pole hodnotou fill. Jinak realokuj pole. 
-		if (size > _numberOfEntities) {
+		if (size > _pocetPlatnychPrvku) {
 
 		}
 		else {
 
 		}
 
-		for (int i = 0; i < _arraySize; i++)
+		for (int i = 0; i < _velikostPole; i++)
 		{
-			newArr[i] = _array[i];
+			newArr[i] = _pole[i];
 		}
 
-		delete[] _array;
-		_array = newArr;
-		_arraySize = newArrSize;
+		delete[] _pole;
+		_pole = newArr;
+		_velikostPole = newArrSize;
 	}
 
 }
 
-template<class T, int S, int C>
-inline T& ExpandingArray<T, S, C>::GetEAdress(int i)
+template<class TypDat, int S, int C>
+inline TypDat& RoustouciKontejner<TypDat, S, C>::Dej(int i)
 {
-	if (_numberOfEntities < i || i <= 0) {
+	if (_pocetPlatnychPrvku < i || i <= 0) {
 		throw std::invalid_argument("There is no element in collection");
 	}
 
-	return _array[i - 1];
+	return _pole[i - 1];
 }
 
-template<class T, int S, int C>
-inline T ExpandingArray<T, S, C>::GetE(int i) const
+template<class TypDat, int S, int C>
+inline TypDat RoustouciKontejner<TypDat, S, C>::Dej(int i) const
 {
-	if (_numberOfEntities < i || i <= 0) {
+	if (_pocetPlatnychPrvku < i || i <= 0) {
 		throw std::invalid_argument("There is no element in collection");
 	}
-	return _array[i - 1];
+	return _pole[i - 1];
 }
 
-template<class T, int S, int C>
-inline unsigned int ExpandingArray<T, S, C>::GetElementCount() const
+template<class TypDat, int S, int C>
+inline unsigned int RoustouciKontejner<TypDat, S, C>::DejPocetPrvku() const
 {
-	return _numberOfEntities;
+	return _pocetPlatnychPrvku;
 }
 
-template<class T, int S, int C>
-inline unsigned int ExpandingArray<T, S, C>::GetArraySize() const
+template<class TypDat, int S, int C>
+inline unsigned int RoustouciKontejner<TypDat, S, C>::DejVelikostPole() const
 {
-	return _arraySize;
+	return _velikostPole;
 }

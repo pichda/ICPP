@@ -4,23 +4,23 @@
 
 int main(int argc, char** argv) {
 	//ExpandingArray <std::string> arr;
-	ExpandingArray <std::string> arr("parametricky konst");
+	RoustouciKontejner <std::string> arr("parametricky konst");
 
-	for (size_t i = 1; i < arr.GetArraySize(); i++)
+	for (size_t i = 1; i < arr.DejVelikostPole(); i++)
 	{
-		std::cout << arr.GetE(i) << "\n";
+		std::cout << arr.Dej(i) << "\n";
 	}
 
 	// pridani 11 prvku
 	for (size_t i = 0; i < 11; i++)
 	{
-		arr.Add("ahoj");
+		arr.Pridej("ahoj");
 	}
 	
 
-	std::cout << arr.GetE(1) << std::endl;
-	std::cout << arr.GetEAdress(7) << std::endl;
-	std::cout << arr.GetElementCount();
-	std::cout << arr.GetArraySize();
+	std::cout << arr.Dej(1) << std::endl;
+	std::cout << arr.Dej(7) << std::endl;
+	std::cout << arr.DejPocetPrvku();
+	std::cout << arr.DejVelikostPole();
 	return 0;
 }
