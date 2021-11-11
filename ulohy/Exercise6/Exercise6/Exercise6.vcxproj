@@ -140,7 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ExpandingArray.h" />
+    <ClInclude Include="RoustouciKontejner.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />

@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ExpandingArray.h">
+    <ClInclude Include="RoustouciKontejner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
